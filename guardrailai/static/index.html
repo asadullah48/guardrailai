@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GuardrailAI | Deterministic Workflow & Compliance Layer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Ambient FX -->
+  <div class="glow-sphere glow-1"></div>
+  <div class="glow-sphere glow-2"></div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h1>Guardrail<span class="gradient-text">AI</span></h1>
+          <span class="brand-badge" data-i18n="badgeTitle">Deterministic Compliance Layer</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="https://asadullahshafique-devunity.vercel.app" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration:none;">
+          <span>👨‍💻 DevUnity Portfolio</span>
+        </a>
+
+        <div class="live-status">
+          <span class="pulse-dot"></span>
+          <span id="gatewayStatus" data-i18n="statusLive">Engine Active (:8003)</span>
+        </div>
+
+        <button id="langToggleBtn" class="btn btn-outline btn-sm" onclick="toggleLanguage()">
+          <span id="langLabel">العربية</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-main">
+    <!-- Hero / Headline -->
+    <section class="hero-section">
+      <h2 data-i18n="heroTitle">Zero-Trust Agentic Guardrails & Cryptographic Audit Trails</h2>
+      <p data-i18n="heroSubtitle">Deterministic pre-flight interceptors, mathematical threshold validation, circuit breaker fallbacks, and immutable SHA-256 blockchain-grade non-repudiation.</p>
+    </section>
+
+    <!-- Metrics Cards -->
+    <section class="metrics-grid">
+      <div class="metric-card glass">
+        <span class="metric-label" data-i18n="metric1Label">State Non-Determinism</span>
+        <div class="metric-value gradient-text">0.00%</div>
+        <span class="metric-sub" data-i18n="metric1Sub">Strict Mathematical Bounds</span>
+      </div>
+      <div class="metric-card glass">
+        <span class="metric-label" data-i18n="metric2Label">Active Rule Engines</span>
+        <div class="metric-value">3 Verticals</div>
+        <span class="metric-sub" data-i18n="metric2Sub">Finance • Health • Legal</span>
+      </div>
+      <div class="metric-card glass">
+        <span class="metric-label" data-i18n="metric3Label">Circuit Breaker SLA</span>
+        <div class="metric-value">100% Safe</div>
+        <span class="metric-sub" data-i18n="metric3Sub">Safe Default & Escalation</span>
+      </div>
+      <div class="metric-card glass">
+        <span class="metric-label" data-i18n="metric4Label">Audit Cryptography</span>
+        <div class="metric-value">SHA-256</div>
+        <span class="metric-sub" data-i18n="metric4Sub">Tamper-Evident Hash Chain</span>
+      </div>
+    </section>
+
+    <!-- Interactive Execution Studio -->
+    <section class="studio-section">
+      <div class="section-header">
+        <div>
+          <h3 data-i18n="studioTitle">Deterministic Workflow & Circuit Breaker Studio</h3>
+          <p class="section-desc" data-i18n="studioDesc">Simulate compliance-critical task execution and watch real-time pre/post interceptors and circuit breakers trip.</p>
+        </div>
+      </div>
+
+      <div class="studio-layout">
+        <!-- Control Panel -->
+        <div class="panel glass">
+          <div class="domain-tabs">
+            <button class="domain-tab active" onclick="switchDomain('FINANCIAL')">💰 <span data-i18n="tabFinance">Financial AML</span></button>
+            <button class="domain-tab" onclick="switchDomain('HEALTHCARE')">🏥 <span data-i18n="tabHealth">Healthcare HIPAA</span></button>
+            <button class="domain-tab" onclick="switchDomain('LEGAL')">⚖️ <span data-i18n="tabLegal">Legal Liability</span></button>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lblWorkflowId">Workflow Transaction ID</label>
+            <input type="text" id="workflowIdInput" value="wf-live-demo-001" class="input-control">
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lblFallbackPolicy">Fallback Policy on Violation</label>
+            <select id="fallbackPolicySelect" class="input-control">
+              <option value="SAFE_DEFAULT">SAFE_DEFAULT (Clamp to Legal Limits)</option>
+              <option value="HUMAN_ESCALATION">HUMAN_ESCALATION (Create Supervisor Ticket)</option>
+              <option value="REJECT_WITH_REASON">REJECT_WITH_REASON (Hard Block)</option>
+            </select>
+          </div>
+
+          <!-- Dynamic Preset Scenarios -->
+          <div class="preset-box">
+            <span class="preset-label" data-i18n="lblScenarios">Test Scenarios:</span>
+            <div class="preset-buttons" id="scenarioButtons">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lblPayload">Task Payload (JSON)</label>
+            <textarea id="payloadTextarea" class="input-control code-editor" rows="6"></textarea>
+          </div>
+
+          <button class="btn btn-primary btn-block" onclick="executeWorkflow()" id="execBtn">
+            <span data-i18n="btnExecute">Execute Deterministic Pipeline</span>
+          </button>
+        </div>
+
+        <!-- Output & Visual State Panel -->
+        <div class="panel glass output-panel">
+          <div class="panel-header">
+            <span class="panel-title" data-i18n="titleExecutionOutput">Execution Pipeline Trace</span>
+            <span id="workflowStatusBadge" class="badge badge-info">IDLE</span>
+          </div>
+
+          <div id="pipelineTrace" class="pipeline-trace">
+            <div class="step-card">
+              <div class="step-dot active"></div>
+              <div class="step-content">
+                <strong>1. Pre-Flight Guardrail Check</strong>
+                <p>ComplianceAgent intercepts input payload against statutory policies.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-dot"></div>
+              <div class="step-content">
+                <strong>2. Deterministic Execution Step</strong>
+                <p>ProcessAgent executes bounded operational logic.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-dot"></div>
+              <div class="step-content">
+                <strong>3. Post-Flight Guardrail Verification</strong>
+                <p>ComplianceAgent evaluates outputs against safety ceilings.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-dot"></div>
+              <div class="step-content">
+                <strong>4. Cryptographic SHA-256 Ledger Sealing</strong>
+                <p>AuditAgent appends to hash chain and issues verification certificate.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-box">
+            <label data-i18n="lblResultJson">Result & Certificate</label>
+            <pre id="resultJsonViewer" class="code-viewer">// Output and audit certificate will appear here after execution...</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cryptographic Ledger & Tamper Proof Section -->
+    <section class="ledger-section">
+      <div class="section-header">
+        <div>
+          <h3 data-i18n="ledgerTitle">Immutable Hash-Chained Audit Ledger</h3>
+          <p class="section-desc" data-i18n="ledgerDesc">Real-time SHA-256 blockchain-grade ledger with non-repudiation and automated mathematical verification.</p>
+        </div>
+        <button class="btn btn-outline" onclick="verifyLedgerIntegrity()" id="verifyBtn">
+          <span data-i18n="btnVerifyLedger">🛡️ Verify Tamper-Proof Chain</span>
+        </button>
+      </div>
+
+      <div id="ledgerBlocksContainer" class="ledger-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p style="margin-bottom:6px;"><a href="https://asadullahshafique-devunity.vercel.app" target="_blank" style="color:var(--accent-cyan); text-decoration:none; font-weight:600;">← Back to Asadullah Shafique Portfolio (DevUnity)</a></p>
+    <p>© 2026 GuardrailAI • Deterministic Compliance Layer • <a href="https://github.com/asadullah48/guardrailai" target="_blank">GitHub Repository</a></p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

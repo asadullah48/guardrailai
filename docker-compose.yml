@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  guardrailai-gateway:
+    build: .
+    container_name: guardrailai-gateway
+    ports:
+      - "8003:8003"
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=info
+      - GUARDRAILS_ENABLED=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: always
