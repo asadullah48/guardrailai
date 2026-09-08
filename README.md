@@ -65,6 +65,28 @@ uvicorn guardrailai.server:app --host 127.0.0.1 --port 8003 --reload
 
 ---
 
+## 🧭 Agentic AI Alignment
+
+GuardrailAI exists to make agent behavior boring in the best way:
+- **Autonomy** — pre-flight and post-flight interceptors validate a request
+  before model execution and review the result before delivery, so the
+  system can act without a human reviewing every step.
+- **Resilience** — every step is sealed into a tamper-evident SHA-256 hash
+  chain, and circuit breakers fail closed to safe defaults (automated PHI
+  redaction, human supervisor escalation) instead of failing open.
+- **Adaptivity** — domain-specific rule modules (Financial/AML/OFAC,
+  Healthcare/HIPAA/FDA, Legal) plug into the same deterministic engine, so
+  the guardrail layer extends to new regulatory domains without rewriting
+  the core.
+
+## 📈 Roadmap
+- [ ] Add further domain rule modules beyond Financial/Healthcare/Legal
+- [ ] Expand the circuit-breaker simulators in the Studio dashboard
+- [ ] Tighten integration with the sibling agent repos (ContextX,
+      MarketAgentHub, WorkforceAI)
+
+---
+
 ## 🌐 Connected Ecosystem & Portfolio
 
 - **DevUnity Portfolio**: [https://asadullahshafique-devunity.vercel.app](https://asadullahshafique-devunity.vercel.app)
