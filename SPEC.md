@@ -1,3 +1,5 @@
+> Historical design proposal. For implemented behavior and scope, see README.md and REVIEW.md.
+
 # GuardrailAI: Deterministic Workflow Layer Specification
 
 ## 1. Executive Summary & Problem Statement

@@ -1,0 +1,55 @@
+C:\Users\Asad\AppData\Roaming\Python\Python314\site-packages\langsmith\schemas.py:23: UserWarning: Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+  from pydantic.v1 import (
+============================= test session starts =============================
+platform win32 -- Python 3.14.7, pytest-9.0.2, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Asad\OneDrive\Documents\ChatGPT\plan's\guardrailai
+configfile: pyproject.toml
+plugins: anyio-4.11.0, langsmith-0.4.59, asyncio-1.3.0, cov-7.1.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 42 items
+
+tests/test_agents.py::test_process_agent_deterministic_execution PASSED  [  2%]
+tests/test_agents.py::test_compliance_agent_evaluation PASSED            [  4%]
+tests/test_agents.py::test_audit_agent_record_and_certify PASSED         [  7%]
+tests/test_audit_ledger.py::test_audit_ledger_genesis_and_append PASSED  [  9%]
+tests/test_audit_ledger.py::test_audit_ledger_tamper_detection PASSED    [ 11%]
+tests/test_audit_ledger.py::test_audit_certificate_generation PASSED     [ 14%]
+tests/test_guardrails.py::test_financial_guardrails_ofac_and_aml PASSED  [ 16%]
+tests/test_guardrails.py::test_healthcare_guardrails_hipaa_and_dosage PASSED [ 19%]
+tests/test_guardrails.py::test_legal_guardrails_liability_and_indemnity PASSED [ 21%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[block_index-99-0] PASSED [ 23%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[block_index-99-1] PASSED [ 26%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[workflow_id-other-workflow-0] PASSED [ 28%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[workflow_id-other-workflow-1] PASSED [ 30%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[step_name-ALTERED-0] PASSED [ 33%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[step_name-ALTERED-1] PASSED [ 35%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[agent_name-OtherAgent-0] PASSED [ 38%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[agent_name-OtherAgent-1] PASSED [ 40%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[input_hash-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-0] PASSED [ 42%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[input_hash-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-1] PASSED [ 45%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[output_hash-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb-0] PASSED [ 47%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[output_hash-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb-1] PASSED [ 50%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[previous_block_hash-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc-0] PASSED [ 52%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[previous_block_hash-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc-1] PASSED [ 54%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[current_block_hash-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd-0] PASSED [ 57%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[current_block_hash-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd-1] PASSED [ 59%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[timestamp-0.0-0] PASSED [ 61%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[timestamp-0.0-1] PASSED [ 64%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[metadata-value9-0] PASSED [ 66%]
+tests/test_regressions.py::test_integrity_covers_every_block_field[metadata-value9-1] PASSED [ 69%]
+tests/test_regressions.py::test_empty_ledger_is_invalid PASSED           [ 71%]
+tests/test_regressions.py::test_metadata_is_snapshotted_when_appended PASSED [ 73%]
+tests/test_regressions.py::test_identifiers_are_stable_across_processes[transaction] PASSED [ 76%]
+tests/test_regressions.py::test_identifiers_are_stable_across_processes[escalation] PASSED [ 78%]
+tests/test_regressions.py::test_post_flight_blocking_violation_routes_to_fallback PASSED [ 80%]
+tests/test_server.py::test_server_dashboard_root PASSED                  [ 83%]
+tests/test_server.py::test_server_healthz PASSED                         [ 85%]
+tests/test_server.py::test_server_readyz PASSED                          [ 88%]
+tests/test_server.py::test_server_workflow_execute_api PASSED            [ 90%]
+tests/test_server.py::test_server_audit_ledger_api PASSED                [ 92%]
+tests/test_workflow.py::test_workflow_clean_execution PASSED             [ 95%]
+tests/test_workflow.py::test_workflow_circuit_breaker_pre_flight PASSED  [ 97%]
+tests/test_workflow.py::test_workflow_human_escalation_policy PASSED     [100%]
+
+============================= 42 passed in 4.43s ==============================

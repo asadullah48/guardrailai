@@ -1,3 +1,6 @@
+import hashlib
+import json
+
 from typing import Dict, Any
 from guardrailai.core.models import WorkflowDomain
 
@@ -12,9 +15,12 @@ class ProcessAgent:
     def execute_step(self, domain: WorkflowDomain, payload: Dict[str, Any]) -> Dict[str, Any]:
         if domain == WorkflowDomain.FINANCIAL:
             amount = float(payload.get("amount_usd", 1000.0))
+            payload_digest = hashlib.sha256(
+                json.dumps(payload, sort_keys=True, default=str).encode("utf-8")
+            ).hexdigest()
             return {
                 "execution_status": "PROCESSED",
-                "transaction_reference": f"TX-FIN-{abs(hash(str(payload))) % 10000000}",
+                "transaction_reference": f"TX-FIN-{payload_digest[:16].upper()}",
                 "amount_processed_usd": amount,
                 "debt_to_equity_ratio": payload.get("debt_to_equity_ratio", 0.25),
                 "approval_timestamp": payload.get("timestamp")

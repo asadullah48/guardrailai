@@ -51,16 +51,16 @@
   <main class="app-main">
     <!-- Hero / Headline -->
     <section class="hero-section">
-      <h2 data-i18n="heroTitle">Zero-Trust Agentic Guardrails & Cryptographic Audit Trails</h2>
-      <p data-i18n="heroSubtitle">Deterministic pre-flight interceptors, mathematical threshold validation, circuit breaker fallbacks, and immutable SHA-256 blockchain-grade non-repudiation.</p>
+      <h2 data-i18n="heroTitle">Deterministic Agentic Guardrails & SHA-256 Audit Trails</h2>
+      <p data-i18n="heroSubtitle">Pre-flight and post-flight policy checks, explicit fallback routing, and tamper-evident SHA-256 audit trails.</p>
     </section>
 
     <!-- Metrics Cards -->
     <section class="metrics-grid">
       <div class="metric-card glass">
-        <span class="metric-label" data-i18n="metric1Label">State Non-Determinism</span>
-        <div class="metric-value gradient-text">0.00%</div>
-        <span class="metric-sub" data-i18n="metric1Sub">Strict Mathematical Bounds</span>
+        <span class="metric-label" data-i18n="metric1Label">Execution Model</span>
+        <div class="metric-value gradient-text">Deterministic</div>
+        <span class="metric-sub" data-i18n="metric1Sub">Local Domain Processing</span>
       </div>
       <div class="metric-card glass">
         <span class="metric-label" data-i18n="metric2Label">Active Rule Engines</span>
@@ -68,9 +68,9 @@
         <span class="metric-sub" data-i18n="metric2Sub">Finance • Health • Legal</span>
       </div>
       <div class="metric-card glass">
-        <span class="metric-label" data-i18n="metric3Label">Circuit Breaker SLA</span>
-        <div class="metric-value">100% Safe</div>
-        <span class="metric-sub" data-i18n="metric3Sub">Safe Default & Escalation</span>
+        <span class="metric-label" data-i18n="metric3Label">Violation Routing</span>
+        <div class="metric-value">Fallback</div>
+        <span class="metric-sub" data-i18n="metric3Sub">Withhold or Escalate</span>
       </div>
       <div class="metric-card glass">
         <span class="metric-label" data-i18n="metric4Label">Audit Cryptography</span>
@@ -105,8 +105,8 @@
           <div class="form-group">
             <label data-i18n="lblFallbackPolicy">Fallback Policy on Violation</label>
             <select id="fallbackPolicySelect" class="input-control">
-              <option value="SAFE_DEFAULT">SAFE_DEFAULT (Clamp to Legal Limits)</option>
-              <option value="HUMAN_ESCALATION">HUMAN_ESCALATION (Create Supervisor Ticket)</option>
+              <option value="SAFE_DEFAULT">SAFE_DEFAULT (Withhold Operation)</option>
+              <option value="HUMAN_ESCALATION">HUMAN_ESCALATION (Return Pending Reference)</option>
               <option value="REJECT_WITH_REASON">REJECT_WITH_REASON (Hard Block)</option>
             </select>
           </div>
@@ -141,7 +141,7 @@
               <div class="step-dot active"></div>
               <div class="step-content">
                 <strong>1. Pre-Flight Guardrail Check</strong>
-                <p>ComplianceAgent intercepts input payload against statutory policies.</p>
+                <p>ComplianceAgent intercepts input payload against configured example policies.</p>
               </div>
             </div>
             <div class="step-card">
@@ -162,13 +162,13 @@
               <div class="step-dot"></div>
               <div class="step-content">
                 <strong>4. Cryptographic SHA-256 Ledger Sealing</strong>
-                <p>AuditAgent appends to hash chain and issues verification certificate.</p>
+                <p>AuditAgent appends to hash chain and returns an unsigned audit seal.</p>
               </div>
             </div>
           </div>
 
           <div class="result-box">
-            <label data-i18n="lblResultJson">Result & Certificate</label>
+            <label data-i18n="lblResultJson">Result & Audit Seal</label>
             <pre id="resultJsonViewer" class="code-viewer">// Output and audit certificate will appear here after execution...</pre>
           </div>
         </div>
@@ -179,11 +179,11 @@
     <section class="ledger-section">
       <div class="section-header">
         <div>
-          <h3 data-i18n="ledgerTitle">Immutable Hash-Chained Audit Ledger</h3>
-          <p class="section-desc" data-i18n="ledgerDesc">Real-time SHA-256 blockchain-grade ledger with non-repudiation and automated mathematical verification.</p>
+          <h3 data-i18n="ledgerTitle">Tamper-Evident Hash-Chained Audit Ledger</h3>
+          <p class="section-desc" data-i18n="ledgerDesc">Inspect stored blocks and verify their SHA-256 hashes and chain links.</p>
         </div>
         <button class="btn btn-outline" onclick="verifyLedgerIntegrity()" id="verifyBtn">
-          <span data-i18n="btnVerifyLedger">🛡️ Verify Tamper-Proof Chain</span>
+          <span data-i18n="btnVerifyLedger">🛡️ Verify Chain Integrity</span>
         </button>
       </div>
 
