@@ -68,7 +68,7 @@ print(engine.active_ledgers["demo-wire"].verify_integrity())
 
 ## Validation
 
-Baseline: `17 passed in 9.21s`. After fixes: **42 passing tests**, including regressions first exercised against the original implementation (`18 failed, 7 passed in 12.44s`). [Review evidence](REVIEW.md) records commands, exact summaries and source pointers.
+Baseline: `17 passed in 9.21s`. After fixes: **42 passing tests**, including regressions first exercised against the original implementation (`18 failed, 7 passed in 12.44s`). [Review evidence](docs/REVIEW.md) records commands, exact summaries and source pointers.
 
 ## Limits / non-goals
 

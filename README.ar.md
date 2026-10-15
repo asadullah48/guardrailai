@@ -19,7 +19,7 @@ python -m pytest tests -v
 uvicorn guardrailai.server:app --host 127.0.0.1 --port 8003 --reload
 ```
 
-[تعليمات التشغيل والأدلة التفصيلية](README.md) · [نتائج المراجعة](REVIEW.md)
+[تعليمات التشغيل والأدلة التفصيلية](README.md) · [نتائج المراجعة](docs/REVIEW.md)
 
 ## الحدود / خارج النطاق
 

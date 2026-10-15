@@ -1,4 +1,4 @@
-> Historical design proposal. For implemented behavior and scope, see README.md and REVIEW.md.
+> Historical design proposal. For implemented behavior and scope, see README.md and docs/REVIEW.md.
 
 # GuardrailAI: Deterministic Workflow Layer Specification
 

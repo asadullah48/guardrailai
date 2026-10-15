@@ -55,7 +55,15 @@ Final verification after documentation and Studio edits: `python -m pytest tests
 ============================= 42 passed in 4.43s ==============================
 ```
 
-[Full final test output](validation-after.txt). The README example returned `COMPLETED` and `True`; `node --check guardrailai/static/app.js` and `git diff --check` exited successfully.
+The README example returned `COMPLETED` and `True`; `node --check guardrailai/static/app.js` and `git diff --check` exited successfully.
+
+Cleanup verification after moving this report and removing the raw test log: `python -m pytest tests -v -o faulthandler_timeout=30`.
+
+```text
+============================= 42 passed in 4.55s ==============================
+```
+
+The same installed-plugin startup warning appeared. The report was checked for local absolute paths; none remain.
 
 ## Diffs and compatibility
 
