@@ -1,95 +1,83 @@
-# 🛡️ GuardrailAI: Deterministic Workflow Layer
+# GuardrailAI: Deterministic Workflow Layer
 
-> **A zero-trust, compliance-critical agentic workflow framework enforcing deterministic guardrails, mathematical bounds, circuit breaker fallbacks, and cryptographic hash-chained audit trails.**
+> **Deterministic pre/post execution guardrails, circuit-breaker routing, and tamper-evident SHA-256 audit trails for agentic workflows.**
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-green.svg)](https://www.python.org/)
-[![Tests Passing](https://img.shields.io/badge/Tests-17%20Passing-brightgreen.svg)]()
-[![FastAPI](https://img.shields.io/badge/API-FastAPI%20%3A8003-teal.svg)](http://127.0.0.1:8003/docs)
-[![Author](https://img.shields.io/badge/Author-Asadullah%20Shafique-purple.svg)](https://asadullahshafique-devunity.vercel.app)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-green.svg)](pyproject.toml)
+[![Tests](https://img.shields.io/badge/Tests-42%20Passing-brightgreen.svg)](tests/)
+[![FastAPI](https://img.shields.io/badge/API-FastAPI-teal.svg)](guardrailai/server.py)
 
----
+GuardrailAI makes policy decisions inspectable: typed requests pass through explicit input checks, deterministic processing, output checks, and a hash-chained audit ledger. A bilingual English/Arabic Studio exposes the same FastAPI execution and verification endpoints.
 
-## 🚀 Key Value Propositions
+## Engineering highlights
 
-1. **Deterministic Bounded Agents**: Replaces stochastic LLM unreliability with mathematically validated operational bounds.
-2. **Pre-Flight & Post-Flight Interceptors**: Validates requests before model execution and reviews results before delivery.
-3. **Cryptographic SHA-256 Audit Trail**: Every step is sealed into a tamper-evident blockchain-style hash chain ($H_i = \text{SHA-256}(H_{i-1} + \text{data})$).
-4. **Automated Circuit Breakers**: Fails closed gracefully with safe defaults, automated PHI redaction, or human supervisor escalation.
-5. **Interactive Glassmorphic Studio**: Live dashboard with multi-domain simulators, circuit breaker testers, and bilingual (English/Arabic) UI.
+- **Explicit control flow:** `ComplianceAgent`, `ProcessAgent`, and `AuditAgent` have separate responsibilities. Both `BLOCKING` and `CRITICAL` violations route to fallback; warnings remain visible in the response.
+- **Reproducible processing:** financial references use a canonical payload digest; escalation references use a workflow ID digest. Regression tests compare separate Python processes with different hash seeds and reordered payload keys.
+- **Field-complete audit hashing:** every stored block field except its own digest participates in SHA-256, including genesis contents, timestamps and metadata. Verification also checks workflow identity, sequence and previous links; caller-owned metadata is deep-copied on append.
+- **Executable failure paths:** tests cover field mutation, an empty ledger, pre-flight blocking, injected post-flight blocking, fallback responses and API access.
 
----
+## Workflow
 
-## 🏛️ Specialized Guardrail Modules
-
-```
-                    ┌─────────────────────────┐
-                    │   Client API / Studio   │
-                    └────────────┬────────────┘
-                                 │
-                    ┌────────────▼────────────┐
-                    │  Deterministic Engine   │
-                    └────────────┬────────────┘
-                                 │
-         ┌───────────────────────┼───────────────────────┐
-         ▼                       ▼                       ▼
-┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐
-│ Financial Rules  │   │ Healthcare Rules │   │   Legal Rules    │
-│ • AML Threshold  │   │ • HIPAA 18 PHI   │   │ • Liability Cap  │
-│ • OFAC Sanctions │   │ • FDA Dosage Cap │   │ • Mutual Indem.  │
-│ • AAOIFI Shariah │   │ • 21 CFR Part 11 │   │ • ABA Rule 5.3   │
-└──────────────────┘   └──────────────────┘   └──────────────────┘
+```mermaid
+flowchart LR
+    Request --> Pre[Pre-flight checks]
+    Pre -->|Pass or warning| Process[Deterministic processor]
+    Process --> Post[Post-flight checks]
+    Pre -->|Blocking or critical| Fallback[Fallback response]
+    Post -->|Blocking or critical| Fallback
+    Post -->|Pass or warning| Result[Result]
+    Fallback --> Audit[Hash-chained audit seal]
+    Result --> Audit
 ```
 
----
+The processor contains local domain demonstrations. The orchestration boundary is the extension point for an application-owned processor. No model API key is needed to run the current pipeline.
 
-## 🛠️ Quick Start
+## Implemented policy examples
+
+| Domain | Pre-flight | Post-flight |
+|---|---|---|
+| Financial | Configured destination denylist; amount threshold | Debt-ratio warning |
+| Healthcare | Dashed SSN pattern detection | Configured medication/dosage rule |
+| Legal | Liability and indemnity phrase checks | Disclaimer flag warning |
+
+See [rule implementations](guardrailai/guardrails/) and [workflow routing](guardrailai/orchestration/workflow.py).
+
+## Run locally
 
 ```powershell
-# 1. Clone repository
 git clone https://github.com/asadullah48/guardrailai.git
 cd guardrailai
-
-# 2. Install dependencies
-pip install -e .
-
-# 3. Run automated test suite
+python -m pip install -e ".[dev]"
 python -m pytest tests -v
-
-# 4. Start local gateway & frontend dashboard
 uvicorn guardrailai.server:app --host 127.0.0.1 --port 8003 --reload
 ```
 
-- **Interactive Dashboard**: [http://127.0.0.1:8003/](http://127.0.0.1:8003/)
-- **Swagger OpenAPI Docs**: [http://127.0.0.1:8003/docs](http://127.0.0.1:8003/docs)
+Open the [Studio](http://127.0.0.1:8003/) or [OpenAPI docs](http://127.0.0.1:8003/docs).
 
----
+```python
+from guardrailai.core.models import WorkflowExecutionRequest
+from guardrailai.orchestration.workflow import DeterministicWorkflowEngine
 
-## 🧭 Agentic AI Alignment
+engine = DeterministicWorkflowEngine()
+response = engine.execute_workflow(WorkflowExecutionRequest(
+    workflow_id="demo-wire",
+    payload={"amount_usd": 4500, "destination_country": "US"},
+))
+print(response.final_status.value)
+print(engine.active_ledgers["demo-wire"].verify_integrity())
+```
 
-GuardrailAI exists to make agent behavior boring in the best way:
-- **Autonomy** — pre-flight and post-flight interceptors validate a request
-  before model execution and review the result before delivery, so the
-  system can act without a human reviewing every step.
-- **Resilience** — every step is sealed into a tamper-evident SHA-256 hash
-  chain, and circuit breakers fail closed to safe defaults (automated PHI
-  redaction, human supervisor escalation) instead of failing open.
-- **Adaptivity** — domain-specific rule modules (Financial/AML/OFAC,
-  Healthcare/HIPAA/FDA, Legal) plug into the same deterministic engine, so
-  the guardrail layer extends to new regulatory domains without rewriting
-  the core.
+## Validation
 
-## 📈 Roadmap
-- [ ] Add further domain rule modules beyond Financial/Healthcare/Legal
-- [ ] Expand the circuit-breaker simulators in the Studio dashboard
-- [ ] Tighten integration with the sibling agent repos (ContextX,
-      MarketAgentHub, WorkforceAI)
+Baseline: `17 passed in 9.21s`. After fixes: **42 passing tests**, including regressions first exercised against the original implementation (`18 failed, 7 passed in 12.44s`). [Review evidence](docs/REVIEW.md) records commands, exact summaries and source pointers.
 
----
+## Limits / non-goals
 
-## 🌐 Connected Ecosystem & Portfolio
+- **Policy examples:** the domain rules are configured thresholds, a hard-coded denylist, regular expressions and phrase checks. They do not provide live OFAC screening, complete AML/HIPAA Safe Harbor coverage, clinical validation, legal advice or regulatory certification. Regulatory labels in rule IDs and messages identify examples; their wording is not authoritative guidance.
+- **Processor and fallbacks:** processing produces simulated domain results. `SAFE_DEFAULT` withholds the operation and returns remediation text; `HUMAN_ESCALATION` returns a reference and pending flag. There is no approval queue or external ticket integration. `REDACTION` currently follows the rejection branch; no automatic PHI scrubber is implemented.
+- **Audit trust boundary:** ledgers are mutable objects held in memory, lost on restart and replaced when the same workflow ID is reused. Hash chaining detects edits relative to the stored chain; a writer who can recompute the entire chain or truncate its tail needs an external trusted checkpoint to be detected. Audit seals are unsigned status strings, not non-repudiation certificates or immutable storage. The new block digest format changes existing seals; there is no persisted-ledger migration.
+- **Determinism scope:** domain processing and references are reproducible for supported JSON payloads. Timestamps and audit seals vary across executions. The repository does not establish a measured non-determinism percentage, safety SLA or compliance outcome.
+- **Deployment:** the demo gateway has no authentication, durable audit storage or tenant isolation; domain payload validation and exception handling need application-specific hardening. Docker/Helm files are included, but production deployment was not validated in this review. [SPEC.md](SPEC.md) is a historical design proposal, including capabilities beyond the implementation.
 
-- **DevUnity Portfolio**: [https://asadullahshafique-devunity.vercel.app](https://asadullahshafique-devunity.vercel.app)
-- **MarketAgentHub**: [https://github.com/asadullah48/marketagenthub](https://github.com/asadullah48/marketagenthub)
-- **WorkforceAI**: [https://github.com/asadullah48/workforceai](https://github.com/asadullah48/workforceai)
-- **DomainX**: [https://github.com/asadullah48/domainx](https://github.com/asadullah48/domainx)
+## Author
+
+[Asadullah Shafique](https://asadullahshafique-devunity.vercel.app/) · [GitHub](https://github.com/asadullah48)

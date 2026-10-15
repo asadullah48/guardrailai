@@ -7,14 +7,14 @@ const TRANSLATIONS = {
   en: {
     badgeTitle: "Deterministic Compliance Layer",
     statusLive: "Engine Active (:8003)",
-    heroTitle: "Zero-Trust Agentic Guardrails & Cryptographic Audit Trails",
-    heroSubtitle: "Deterministic pre-flight interceptors, mathematical threshold validation, circuit breaker fallbacks, and immutable SHA-256 blockchain-grade non-repudiation.",
-    metric1Label: "State Non-Determinism",
-    metric1Sub: "Strict Mathematical Bounds",
+    heroTitle: "Deterministic Agentic Guardrails & SHA-256 Audit Trails",
+    heroSubtitle: "Pre-flight and post-flight policy checks, explicit fallback routing, and tamper-evident SHA-256 audit trails.",
+    metric1Label: "Execution Model",
+    metric1Sub: "Local Domain Processing",
     metric2Label: "Active Rule Engines",
     metric2Sub: "Finance • Health • Legal",
-    metric3Label: "Circuit Breaker SLA",
-    metric3Sub: "Safe Default & Escalation",
+    metric3Label: "Violation Routing",
+    metric3Sub: "Withhold or Escalate",
     metric4Label: "Audit Cryptography",
     metric4Sub: "Tamper-Evident Hash Chain",
     studioTitle: "Deterministic Workflow & Circuit Breaker Studio",
@@ -28,24 +28,24 @@ const TRANSLATIONS = {
     lblPayload: "Task Payload (JSON)",
     btnExecute: "Execute Deterministic Pipeline",
     titleExecutionOutput: "Execution Pipeline Trace",
-    lblResultJson: "Result & Certificate",
-    ledgerTitle: "Immutable Hash-Chained Audit Ledger",
-    ledgerDesc: "Real-time SHA-256 blockchain-grade ledger with non-repudiation and automated mathematical verification.",
-    btnVerifyLedger: "🛡️ Verify Tamper-Proof Chain"
+    lblResultJson: "Result & Audit Seal",
+    ledgerTitle: "Tamper-Evident Hash-Chained Audit Ledger",
+    ledgerDesc: "Inspect stored blocks and verify their SHA-256 hashes and chain links.",
+    btnVerifyLedger: "🛡️ Verify Chain Integrity"
   },
   ar: {
     badgeTitle: "طبقة الامتثال والحواجز القطعية",
     statusLive: "المحرك نشط (:8003)",
-    heroTitle: "حواجز حماية غير مشروطة بالثقة وسجلات تدقيق مشفرة",
+    heroTitle: "حواجز حماية قطعية وسجل تدقيق SHA-256",
     heroSubtitle: "اعتراض قطعي قبل التنفيذ، وفحص للحدود الرياضية، ومفاتيح قطع الدائرة وبدائل آمنة مع ختم تشفيري بسلسلة تجزئة SHA-256.",
-    metric1Label: "اللاحتمية السلوكية",
-    metric1Sub: "حدود رياضية صارمة",
+    metric1Label: "نموذج التنفيذ",
+    metric1Sub: "معالجة محلية قطعية",
     metric2Label: "محركات القواعد النشطة",
     metric2Sub: "المالية • الصحية • القانونية",
-    metric3Label: "ضمان قطع الدائرة",
+    metric3Label: "توجيه المخالفات",
     metric3Sub: "بدائل آمنة وتصعيد للمشرف",
     metric4Label: "تشفير التدقيق",
-    metric4Sub: "سلسلة تجزئة غير قابلة للتلاعب",
+    metric4Sub: "سلسلة تجزئة تكشف التعديل",
     studioTitle: "استوديو مسارات العمل القطعية ومفاتيح الأمان",
     studioDesc: "قم بمحاكاة تنفيذ المهام الحرجة وشاهد التدقيق التلقائي واشتغال مفاتيح قطع الدائرة عند اكتشاف مخالفات.",
     tabFinance: "الامتثال المالي AML",
@@ -57,9 +57,9 @@ const TRANSLATIONS = {
     lblPayload: "بيانات المهمة (JSON)",
     btnExecute: "تشغيل مسار العمل القطعي",
     titleExecutionOutput: "تتبع مراحل التدقيق والتنفيذ",
-    lblResultJson: "النتيجة وشهادة عدم الإنكار",
+    lblResultJson: "النتيجة وختم التدقيق",
     ledgerTitle: "سجل التدقيق المشفر بسلسلة التجزئة",
-    ledgerDesc: "سجل غير قابل للتعديل يماثل تقنية البلوكشين مع تحقق رياضي فوري من سلامة السلسلة.",
+    ledgerDesc: "فحص تجزئات SHA-256 وروابط كتل السجل المخزنة.",
     btnVerifyLedger: "🛡️ التحقق من سلامة السلسلة وعدم التلاعب"
   }
 };
@@ -249,7 +249,7 @@ async function verifyLedgerIntegrity() {
     const res = await fetch(`/api/v1/audit/verify/${wfId}`);
     const data = await res.json();
     if (data.valid) {
-      alert(`✅ Cryptographic Audit Chain Verified!\nWorkflow: ${wfId}\nCertificate: ${data.certificate}\nIntegrity: 100% Tamper-Proof.`);
+      alert(`✅ Cryptographic Audit Chain Verified!\nWorkflow: ${wfId}\nCertificate: ${data.certificate}\nIntegrity: stored chain hashes and links match.`);
     } else {
       alert(`❌ Hash Mismatch Detected! Ledger chain has been corrupted or tampered.`);
     }

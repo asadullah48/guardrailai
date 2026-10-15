@@ -1,3 +1,5 @@
+import hashlib
+
 from typing import Dict, Any, List
 from guardrailai.core.models import (
     WorkflowExecutionRequest, WorkflowExecutionResponse, WorkflowStatus,
@@ -79,7 +81,7 @@ class DeterministicWorkflowEngine:
             {"violations_count": len(post_violations)}
         )
 
-        has_critical_post = any(v.severity == GuardrailSeverity.CRITICAL for v in post_violations)
+        has_critical_post = any(v.severity in [GuardrailSeverity.CRITICAL, GuardrailSeverity.BLOCKING] for v in post_violations)
 
         if has_critical_post:
             circuit_breaker = True
@@ -121,14 +123,14 @@ class DeterministicWorkflowEngine:
             return {
                 "action": "SAFE_DEFAULT_APPLIED",
                 "original_request": req.task_intent,
-                "safety_override": "Operation clamped to verified regulatory limits.",
+                "safety_override": "Operation withheld; review the reported policy violations.",
                 "context": context,
                 "remediations": [v.remediation_action for v in violations]
             }
         elif req.fallback_policy == FallbackPolicy.HUMAN_ESCALATION:
             return {
                 "action": "ESCALATED_TO_HUMAN_SUPERVISOR",
-                "escalation_ticket_id": f"ESC-{abs(hash(req.workflow_id)) % 100000}",
+                "escalation_ticket_id": f"ESC-{hashlib.sha256(req.workflow_id.encode('utf-8')).hexdigest()[:16].upper()}",
                 "pending_approval": True,
                 "violations": [v.description for v in violations]
             }

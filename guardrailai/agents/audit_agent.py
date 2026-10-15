@@ -4,8 +4,8 @@ from guardrailai.core.models import AuditBlock
 
 class AuditAgent:
     """
-    AuditAgent: Hashes and seals every transaction step into an immutable ledger,
-    verifying cryptographic integrity and issuing non-repudiation certificates.
+    AuditAgent: Records workflow steps in a tamper-evident hash chain,
+    verifies integrity and returns an unsigned audit seal.
     """
     def __init__(self):
         self.name = "AuditAgent"
